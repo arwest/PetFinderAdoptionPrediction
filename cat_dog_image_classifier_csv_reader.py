@@ -8,7 +8,7 @@ adoption_speed_index = 23
 pet_id_index = 21
 
 def create_type_speed_array():
-    folder_dir = os.curdir + '/petfinder-adoption-prediction/train_images_npy'
+    folder_dir = join(os.curdir,'petfinder-adoption-prediction','train_images_npy')
 
     ids = []
     for file in os.listdir(folder_dir):
@@ -17,7 +17,7 @@ def create_type_speed_array():
             ids.append(name)
 
     dic = dict()
-    with open(join(os.curdir,'petfinder-adoption-prediction/train.csv')) as csvFile:
+    with open(join(os.curdir,'petfinder-adoption-prediction','train.csv')) as csvFile:
         csvReader = csv.reader(csvFile, delimiter=',')
         line = 0
         for row in csvReader:
@@ -26,7 +26,7 @@ def create_type_speed_array():
                 continue
             dic[row[pet_id_index]] = (row[type_index], row[adoption_speed_index])
 
-    results_dir = join(os.curdir, 'petfinder-adoption-prediction/train_images_results')
+    results_dir = join(os.curdir, 'petfinder-adoption-prediction','train_images_results')
     if not os.path.isdir(results_dir):
         os.mkdir(results_dir)
 
@@ -38,7 +38,7 @@ def create_type_speed_array():
             id_file.write(str(id) + '\n')
         data_matrix = np.array(data, dtype=np.int32)
 
-    np.save(join(os.curdir, 'petfinder-adoption-prediction/train_images_results/matrix'), data_matrix)
+    np.save(join(os.curdir, 'petfinder-adoption-prediction','train_images_results','matrix'), data_matrix)
 
     return data_matrix
 
