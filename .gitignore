@@ -103,3 +103,5 @@ ENV/
 .DS_Store
 *.xml
 .idea/PetFinderAdoptionPrediction.iml
+*.npy
+petfinder-adoption-prediction/train_images_results/ids.txt
