@@ -101,3 +101,5 @@ ENV/
 *.jpg
 *.json
 .DS_Store
+*.xml
+.idea/PetFinderAdoptionPrediction.iml
