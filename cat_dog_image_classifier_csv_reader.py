@@ -4,18 +4,18 @@ import numpy as np
 from os.path import isfile, join
 
 type_index = 0
-adoption_speed_index = 23
-pet_id_index = 21
+adoption_speed_index = -1
+pet_id_index = -3
 
 def create_type_speed_array():
-    folder_dir = join(os.curdir,'petfinder-adoption-prediction','train_images_npy')
+    folder_dir = join(os.curdir,'petfinder-adoption-prediction', 'train_images_npy')
 
     ids = []
     for file in os.listdir(folder_dir):
         name = file.split('-')[0]
-        if isfile(join(folder_dir, file)) and not ids.__contains__(file):
+        if isfile(join(folder_dir, file)) and not ids.__contains__(name):
             ids.append(name)
-
+    ids.sort()
     dic = dict()
     with open(join(os.curdir,'petfinder-adoption-prediction','train.csv')) as csvFile:
         csvReader = csv.reader(csvFile, delimiter=',')
@@ -31,7 +31,7 @@ def create_type_speed_array():
         os.mkdir(results_dir)
 
     data= []
-    with open(results_dir + '/ids.txt', 'w') as id_file:
+    with open(join(results_dir,'ids.txt'), 'w') as id_file:
         for id in ids:
             (animal_type, adoption_speed) = dic[id]
             data.append([animal_type, adoption_speed])
