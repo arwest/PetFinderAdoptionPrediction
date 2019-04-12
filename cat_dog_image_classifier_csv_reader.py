@@ -13,11 +13,12 @@ def create_type_speed_array():
     ids = []
     for file in os.listdir(folder_dir):
         name = file.split('-')[0]
-        if isfile(join(folder_dir, file)) and not ids.__contains__(name):
+        # we want to write duplicates as well
+        if isfile(join(folder_dir, file)): #and not ids.__contains__(name):
             ids.append(name)
     ids.sort()
     dic = dict()
-    with open(join(os.curdir,'petfinder-adoption-prediction','train.csv')) as csvFile:
+    with open(join(os.curdir,'petfinder-adoption-prediction','train.csv'), encoding='utf8') as csvFile:
         csvReader = csv.reader(csvFile, delimiter=',')
         line = 0
         for row in csvReader:
