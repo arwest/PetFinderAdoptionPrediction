@@ -8,10 +8,23 @@ import numpy as np
 import matplotlib.pyplot as plt
 import argparse
 import os
+from os.path import join
 
+# X_data_dir = join('petfinder-adoption-prediction','train_images_npy')
+# all_data = np.zeros((58283,50,50,3)) # we have 58283 images
+# file_names = []
+# for i, file_name in enumerate(sorted(os.listdir(X_data_dir))):
+# 	file_names.append(file_name) #= file_name#.split('-')[0]
+# file_names.sort()
+# print(file_names[0:20])
+# for i, file_name in enumerate(file_names):
+# 	if i % 5000 == 0: print(i)
+# 	array = np.load(join(X_data_dir,file_name))
+# 	all_data[i,:,:,:] = array
+# np.save(join('petfinder-adoption-prediction','all_images.npy'), all_data)
 
-all_data = np.load('petfinder-adoption-prediction\\all_images.npy')
-all_labels = np.load('petfinder-adoption-prediction\\train_images_results\\matrix.npy')[:,1] 
+all_data = np.load(join('petfinder-adoption-prediction','all_images.npy'))
+all_labels = np.load(join('petfinder-adoption-prediction','train_images_results','matrix.npy'))[:,1]
 all_targets = np.zeros((len(all_labels), 5)) # len = 58283
 for i in range(len(all_labels)):
 	idx = int(all_labels[i])
