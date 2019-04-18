@@ -9,20 +9,20 @@ import matplotlib.pyplot as plt
 import argparse
 import os
 
-X_data_dir = 'petfinder-adoption-prediction\\train_images_npy\\'
-# all_data = np.zeros((58283,50,50,3)) # we have 58283 images
+X_data_dir = 'petfinder-adoption-prediction\\train_images100_npy\\'
+# all_data = np.zeros((58283,100,100,3)) # we have 58283 images
 # file_names = []
 # for i, file_name in enumerate(sorted(os.listdir(X_data_dir))):
 # 	file_names.append(file_name) #= file_name#.split('-')[0]
 # file_names.sort()
-# print(file_names[0:20])
 # for i, file_name in enumerate(file_names):
 # 	if i % 5000 == 0: print(i)
 # 	array = np.load(X_data_dir+file_name)
 # 	all_data[i,:,:,:] = array
-# np.save('all_images.npy', all_data)
+# np.save('petfinder-adoption-prediction\\all_images100.npy', all_data)
+# print("Data saved in one nparray.")
 
-all_data = np.load('petfinder-adoption-prediction\\all_images.npy')
+all_data = np.load('petfinder-adoption-prediction\\all_images100.npy')
 all_labels = np.load('petfinder-adoption-prediction\\train_images_results\\matrix.npy')[:,0] # check filename and index
 print(all_labels[0:20])
 all_labels = (all_labels * -1) + 2 # dogs are 1, cats are 0
@@ -43,12 +43,17 @@ print(y_train[0:20,:])
 
 # Build CNN 
 model = Sequential()
-model.add(Conv2D(32, (3,3), activation='relu', input_shape=(50,50,3)))
+model.add(Conv2D(32, (3,3), activation='relu', input_shape=(100,100,3)))
 # model.add(Conv2D(32,(3,3), activation='relu'))
 model.add(MaxPooling2D((2,2)))
 model.add(Dropout(.2))
 
 model.add(Conv2D(64,(3,3), activation='relu'))
+# model.add(Conv2D(32,(3,3), activation='relu'))
+model.add(MaxPooling2D((2,2)))
+model.add(Dropout(.2))
+
+model.add(Conv2D(32,(3,3), activation='relu'))
 # model.add(Conv2D(32,(3,3), activation='relu'))
 model.add(MaxPooling2D((2,2)))
 model.add(Dropout(.2))
@@ -84,5 +89,6 @@ for i in range(8283):
 print(temp)
 print("number misclassifications = ", np.linalg.norm(temp-y_test[:,0], 1))
 
-# This model is giving 74% test accuracy
+# This model is giving 74% test accuracy for 50x50 images
+# give 77% accuracy for 100x100 images (without much experimentation on different architectures)
 
