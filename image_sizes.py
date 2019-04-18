@@ -4,7 +4,7 @@ import numpy as np
 from PIL import Image
 import os
 
-train_img_path = 'train_images'
+train_img_path = 'petfinder-adoption-prediction\\train_images'
 
 # This is to decide what size we should rescale the images to
 # heights = []
@@ -20,7 +20,7 @@ train_img_path = 'train_images'
 # print(np.mean(widths)) # 400
 # print(np.mean(heights)) # 390
 
-img_size = 400 # for now, let's just make it a square
+img_size = 100 # for now, let's just make it a square
 def tf_resize_images(X_img_file_paths):
     X_data = []
     tf.reset_default_graph()
@@ -36,8 +36,8 @@ def tf_resize_images(X_img_file_paths):
             	img = mpimg.imread(X_img_file_paths+'\\'+file_name)[:, :, :3] # Do not read alpha channel.
             	resized_img = sess.run(tf_img, feed_dict = {X: img})
             	# X_data.append(resized_img)
-            	nparray = np.array(resized_img, dtype=np.float32)
-            	np.save('train_images_npy\\'+file_name[:-4]+'.npy', nparray)
+            	nparray = np.array(resized_img, dtype=np.float32)/255
+            	np.save('petfinder-adoption-prediction\\train_images100_npy\\'+file_name[:-4]+'.npy', nparray)
             except: 
             	print(file_name) #these images are black and white - throw away
     # X_data = np.array(X_data, dtype = np.float32) # Convert to numpy
